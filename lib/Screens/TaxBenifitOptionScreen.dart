@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tax_track/DataModel.dart';
-import 'package:tax_track/Screens/DeductionOptionScreen.dart';
 import 'package:tax_track/Screens/FormScreen.dart';
 
-class IncomeTaxOptions extends StatelessWidget {
+class TaxBenefitOptions extends StatelessWidget {
+  TaxBenefitOptions ({super.key});
   final List<String> menuList = [
-    "Quick Tax Calculator",
-    "Deduction",
-    "Capital Gain",
+    "Self-Occupied Property",
+    "Rented-Out Property"
   ];
-
-  List popupList = [false, true, false];
 
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context);
     final List<Widget> routes = [
-      FormScreen(
-          calcName: menuList[0], map: model.incomeTaxDetails[0], index: 0),
-      DeductionOption(),
-      FormScreen(
-          calcName: menuList[2], map: model.incomeTaxDetails[12], index: 12),
+      FormScreen(calcName: menuList[0],map: model.incomeTaxDetails[2], index: 2),
+      FormScreen(calcName: menuList[1],map: model.incomeTaxDetails[3], index: 3),
     ];
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Income Tax Options'),
+        title: Text('Tax Benefit Options'),
         toolbarHeight: 80,
       ),
       body: Padding(
@@ -42,34 +36,14 @@ class IncomeTaxOptions extends StatelessWidget {
     );
   }
 
-  Widget listCard(
-      String data, int index, BuildContext context, List<Widget> routes) {
+  Widget listCard(String data, int index, BuildContext context, List<Widget> routes) {
     return InkWell(
       onTap: () {
-        if (popupList[index]) {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-            ),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            // Ensure the shape is respected
-            builder: (context) => Container(
-              height: MediaQuery.of(context).size.height *
-                  0.75, // Adjust the height as needed
-              child: routes[index],
-            ),
-          );
-        } else {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => routes[index],
-            ),
-          );
-        }
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => routes[index],
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),

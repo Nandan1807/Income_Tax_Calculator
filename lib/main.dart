@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tax_track/DataModel.dart';
 import 'package:tax_track/Screens/splashscreen.dart';
+import 'package:tax_track/Theme.dart';
 
 void main() {
   runApp(
@@ -15,16 +16,15 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      themeMode: ThemeMode.system,
+      darkTheme: darkTheme,
+
+      title: 'TaxTrack',
+      theme: lightTheme,
       home: SplashScreen(),
     );
   }
